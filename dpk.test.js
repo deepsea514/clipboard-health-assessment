@@ -1,4 +1,4 @@
-const { deterministicPartitionKey } = require("./dpk");
+const { deterministicPartitionKey, olddeterministicPartitionKey } = require("./dpk");
 const crypto = require("crypto");
 
 describe("deterministicPartitionKey", () => {
@@ -9,12 +9,17 @@ describe("deterministicPartitionKey", () => {
   it("Returns the literal '0' when given no input", () => {
     const trivialKey = deterministicPartitionKey();
     expect(trivialKey).toBe("0");
+    // check if two functions have same functionality.
+    expect(trivialKey).toBe(olddeterministicPartitionKey());
   });
 
   it("Returns PartitionKey if exist", () => {
     let event = { partitionKey : '123f' };
     const key = deterministicPartitionKey(event);
     expect(key).toBe("123f");
+
+    // check if two functions have same functionality.
+    expect(key).toBe(olddeterministicPartitionKey(event));
   });
 
   it("Returns hash value of PartitionKey if it is long", () => {
@@ -24,6 +29,9 @@ describe("deterministicPartitionKey", () => {
     let event = { partitionKey : vv };
     const key = deterministicPartitionKey(event);
     expect(key).toBe(hash(vv));
+
+    // check if two functions have same functionality.
+    expect(key).toBe(olddeterministicPartitionKey(event));
   });
 
   it("Returns json string of PartitionKey if PartitionKey is object", () => {
@@ -35,6 +43,9 @@ describe("deterministicPartitionKey", () => {
     };
     const key = deterministicPartitionKey(event);
     expect(key).toBe(JSON.stringify(event.partitionKey));
+
+    // check if two functions have same functionality.
+    expect(key).toBe(olddeterministicPartitionKey(event));
   });
 
   it("Returns hash value of json string of PartitionKey if PartitionKey is object and it is too long", () => {
@@ -47,11 +58,17 @@ describe("deterministicPartitionKey", () => {
     };
     const key = deterministicPartitionKey(event);
     expect(key).toBe(hash(JSON.stringify(event.partitionKey)));
+
+    // check if two functions have same functionality.
+    expect(key).toBe(olddeterministicPartitionKey(event));
   });
 
   it("Returns hash value of event object if PartitionKey not exist", () => {
     let event = "abcd";
     const key = deterministicPartitionKey("abcd");
     expect(key).toBe(hash(JSON.stringify(event)));
+
+    // check if two functions have same functionality.
+    expect(key).toBe(olddeterministicPartitionKey(event));
   });
 });
