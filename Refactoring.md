@@ -9,3 +9,39 @@ You've been asked to refactor the function `deterministicPartitionKey` in [`dpk.
 You will be graded on the exhaustiveness and quality of your unit tests, the depth of your refactor, and the level of insight into your thought process provided by the written explanation.
 
 ## Your Explanation Here
+My new function is more readable than the old function.
+In old function, it's difficult to analyze and review codes because of its structures.
+
+Old function structure
+```Javascript
+if (event) {
+    if (event.partitionKey) {
+        ...
+    } else {
+        ...
+    }
+}
+if (candidate) {
+    ...
+} else {
+    ...
+}
+if (candidate.length > MAX_PARTITION_KEY_LENGTH) {
+    ...
+}
+```
+I changed the structure which is better to analyze and review.
+It makes easy to find errors.
+```Javascript
+if (event) {
+  ...
+  if (event.partitionKey) {
+    ...
+  } else {
+    ...
+  }
+} else {
+  ...
+}
+```
+As you can see, my function is easy to predict what will happen in different cases of inputs.
