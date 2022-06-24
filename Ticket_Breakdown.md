@@ -16,3 +16,19 @@ Based on the information given, break this ticket down into 2-5 individual ticke
 You will be graded on the level of detail in each ticket, the clarity of the execution plan within and between tickets, and the intelligibility of your language. You don't need to be a native English speaker, but please proof-read your work.
 
 ## Your Breakdown Here
+
+
+**Ticket 1. Save custom ids of Agents in database.**
+- Should make a table AgentID_Facility with three fields. (agent_id, facility_id, custom_id).
+- Facility should provide all unique custom ids of Agents they booked.
+- One Agent can have only one custom id per each Facility.
+- It doesn't take much time to make a new table. About 20 mins maximum.
+
+**Ticket 2. Upate `getShiftsByFacility` function.**
+- Get Shifts and Agents with given Facility id.
+- Should confirm that all Agents in Facility has their own custom ids in AgentID_Facility table.
+- Join AgentID_Facility table so Shift can have custom Agent id in Agent metadata.
+- Joining table would take 3 mins to implement.
+
+**Ticket3. Update `generateReport` function.**
+- Whene generate the PDF file, use custom Agent id from AgentID_Facility in report instead of using database id of Agent.
